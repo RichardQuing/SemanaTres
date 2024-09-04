@@ -59,11 +59,32 @@
         <nz-avatar
           nzIcon="user"
           routerLink="/login"
-          style="background-color: #87d068; margin-left: 90%;cursor: pointer;"
+          *ngIf="!isLogged(); else loggedIn"
+          style="background-color: #87d068; margin-left: 90%; cursor: pointer"
           nzTooltipTitle="Iniciar Sesión"
           nzTooltipPlacement="bottom"
           nz-tooltip
         ></nz-avatar>
+        <ng-template #loggedIn>
+          <button nzType="text" nz-button nz-dropdown [nzDropdownMenu]="menu">
+            <nz-avatar
+              nzIcon="user"
+              [nzSrc]="register?.photoURL"
+            >
+            </nz-avatar>
+            <span style="margin-left: 8px;" nz-icon nzType="down"></span>
+          </button>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-menu-item>
+                <a>Editar perfil</a>
+              </li>
+              <li nz-menu-item>
+                <a (click)="onClickLogout()">Cerrar sesión</a>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
+        </ng-template>
       </div>
     </nz-header>
 
